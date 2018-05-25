@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 消息交换机配置
+ * 消息交换机配置  可以配置多个
  * @author zhuzhe
  * @date 2018/5/25 15:40
  * @email 1529949535@qq.com
