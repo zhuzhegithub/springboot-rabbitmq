@@ -55,14 +55,6 @@ public class RabbitMqConfig {
     }
 
     /**
-     * 定义消费者
-     */
-    /*@Bean
-    public MessageConsumer messageConsumer(){
-        return new MessageConsumer();
-    }*/
-
-    /**
      * queue listener  观察 监听模式
      * 当有消息到达时会通知监听在对应的队列上的监听对象
      * @return
@@ -75,7 +67,6 @@ public class RabbitMqConfig {
         simpleMessageListenerContainer.setMaxConcurrentConsumers(5);
         simpleMessageListenerContainer.setConcurrentConsumers(1);
         simpleMessageListenerContainer.setAcknowledgeMode(AcknowledgeMode.MANUAL); //设置确认模式手工确认
-        //simpleMessageListenerContainer.setMessageListener(messageConsumer());
         return simpleMessageListenerContainer;
     }
 
