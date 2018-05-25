@@ -21,8 +21,14 @@ public class FirstSender {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    public void send(String uuid) {
+    /**
+     * 发送消息
+     * @param uuid
+     * @param message  消息
+     */
+    public void send(String uuid,Object message) {
         CorrelationData correlationId = new CorrelationData(uuid);
-        rabbitTemplate.convertAndSend(RabbitMqConfig.EXCHANGE, RabbitMqConfig.ROUTINGKEY2, "哈哈", correlationId);
+        rabbitTemplate.convertAndSend(RabbitMqConfig.EXCHANGE, RabbitMqConfig.ROUTINGKEY2,
+                message, correlationId);
     }
 }

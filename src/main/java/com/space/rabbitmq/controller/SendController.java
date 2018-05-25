@@ -19,9 +19,9 @@ public class SendController {
     private FirstSender firstSender;
 
     @GetMapping("/send")
-    public String send(){
+    public String send(String message){
         String uuid = UUID.randomUUID().toString();
-        firstSender.send(uuid);
+        firstSender.send(uuid,message);
         return uuid;
     }
 }

@@ -4,5 +4,6 @@ spring:
     port: 5672
     username: guest
     password: guest
+    publisher-confirms: true    #  消息发送到交换机确认机制,是否确认回调
 server:
   port: 8081
