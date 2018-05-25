@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 /**
+ * 消息发送  生产者1
  * @author zhuzhe
  * @date 2018/5/25 14:28
  * @email 1529949535@qq.com
