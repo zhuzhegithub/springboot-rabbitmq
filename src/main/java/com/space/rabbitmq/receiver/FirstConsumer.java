@@ -12,7 +12,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class FirstConsumer {
 
-    @RabbitListener(queues = {"first-queue","second-queue"}, containerFactory = "rabbitListenerContainerFactory")
+    /**
+     * queues  指定从哪个队列（queue）订阅消息
+     * @param message
+     * @throws Exception
+     */
+    @RabbitListener(queues = {/*"first-queue",*/"second-queue"}, containerFactory = "rabbitListenerContainerFactory")
     public void handleMessage(String message) throws Exception {
         // 处理消息
         System.out.println("FirstConsumer {} handleMessage :"+message);
