@@ -22,6 +22,9 @@ public class RabbitMqConfig {
 
     /** 消息交换机的名字*/
     public static final String EXCHANGE = "exchangeTest";
+    /*对列名称*/
+    public static final String QUEUE_NAME1 = "first-queue";
+    public static final String QUEUE_NAME2 = "second-queue";
     /** 队列key1*/
     public static final String ROUTINGKEY1 = "queue_one_key1";
     /** 队列key2*/
