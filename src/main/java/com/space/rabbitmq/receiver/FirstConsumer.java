@@ -18,7 +18,7 @@ public class FirstConsumer {
      * @throws Exception
      */
     @RabbitListener(queues = {/*"first-queue",*/"second-queue"}, containerFactory = "rabbitListenerContainerFactory")
-    public void handleMessage(String message) throws Exception {
+    public void handleMessage(Object message) throws Exception {
         // 处理消息
         System.out.println("FirstConsumer {} handleMessage :"+message);
     }
