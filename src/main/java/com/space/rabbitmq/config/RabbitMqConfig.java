@@ -25,6 +25,12 @@ public class RabbitMqConfig {
     /*对列名称*/
     public static final String QUEUE_NAME1 = "first-queue";
     public static final String QUEUE_NAME2 = "second-queue";
+
+    /*
+    *
+    * key: queue在该direct-exchange中的key值，当消息发送给direct-exchange中指定key为设置值时，
+    *   消息将会转发给queue参数指定的消息队列
+    */
     /** 队列key1*/
     public static final String ROUTINGKEY1 = "queue_one_key1";
     /** 队列key2*/
@@ -42,7 +48,7 @@ public class RabbitMqConfig {
     private ConnectionFactory connectionFactory;
 
     /**
-     将消息队列1和交换机进行绑定
+     * 将消息队列1和交换机进行绑定,指定队列key1
      */
     @Bean
     public Binding binding_one() {
@@ -50,7 +56,7 @@ public class RabbitMqConfig {
     }
 
     /**
-     * 将消息队列2和交换机进行绑定
+     * 将消息队列2和交换机进行绑定,指定队列key2
      */
     @Bean
     public Binding binding_two() {
