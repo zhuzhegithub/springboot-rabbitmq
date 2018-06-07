@@ -33,7 +33,7 @@ public class FirstSender {
          * RabbitMqConfig.EXCHANGE  指定消息交换机
          * RabbitMqConfig.ROUTINGKEY2  指定队列key2
          */
-        rabbitTemplate.convertAndSend(RabbitMqConfig.EXCHANGE, RabbitMqConfig.ROUTINGKEY2,
+        rabbitTemplate.convertAndSend(RabbitMqConfig.EXCHANGE, RabbitMqConfig.ROUTINGKEY1,
                 message, correlationId);
     }
 }

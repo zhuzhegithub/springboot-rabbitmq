@@ -1,6 +1,7 @@
 package com.space.rabbitmq.config;
 
 import com.space.rabbitmq.mqcallback.MsgSendConfirmCallBack;
+import com.space.rabbitmq.mqcallback.MsgSendReturnCallback;
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -68,7 +69,7 @@ public class RabbitMqConfig {
      * 当有消息到达时会通知监听在对应的队列上的监听对象
      * @return
      */
-    @Bean
+    /*@Bean
     public SimpleMessageListenerContainer simpleMessageListenerContainer_one(){
         SimpleMessageListenerContainer simpleMessageListenerContainer = new SimpleMessageListenerContainer(connectionFactory);
         simpleMessageListenerContainer.addQueues(queueConfig.firstQueue());
@@ -77,29 +78,40 @@ public class RabbitMqConfig {
         simpleMessageListenerContainer.setConcurrentConsumers(1);
         simpleMessageListenerContainer.setAcknowledgeMode(AcknowledgeMode.MANUAL); //设置确认模式手工确认
         return simpleMessageListenerContainer;
-    }
+    }*/
 
     /**
-     * 定义rabbit template用于数据的接收和发送
+     * 自定义rabbit template用于数据的接收和发送
+     * 可以设置消息确认机制和回调
      * @return
      */
     @Bean
     public RabbitTemplate rabbitTemplate() {
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
+        // template.setMessageConverter(); 可以自定义消息转换器  默认使用的JDK的，所以消息对象需要实现Serializable
+
         /**若使用confirm-callback或return-callback，
          * 必须要配置publisherConfirms或publisherReturns为true
          * 每个rabbitTemplate只能有一个confirm-callback和return-callback
          */
         template.setConfirmCallback(msgSendConfirmCallBack());
-        //template.setReturnCallback(msgSendReturnCallback());
+
         /**
          * 使用return-callback时必须设置mandatory为true，或者在配置中设置mandatory-expression的值为true，
          * 可针对每次请求的消息去确定’mandatory’的boolean值，
          * 只能在提供’return -callback’时使用，与mandatory互斥
          */
-        //  template.setMandatory(true);
+        template.setReturnCallback(msgSendReturnCallback());
+        template.setMandatory(true);
         return template;
     }
+
+    /*  关于 msgSendConfirmCallBack 和 msgSendReturnCallback 的回调说明：
+        1.如果消息没有到exchange,则confirm回调,ack=false
+        2.如果消息到达exchange,则confirm回调,ack=true
+        3.exchange到queue成功,则不回调return
+        4.exchange到queue失败,则回调return(需设置mandatory=true,否则不回回调,消息就丢了)
+    */
 
     /**
      * 消息确认机制
@@ -114,4 +126,8 @@ public class RabbitMqConfig {
         return new MsgSendConfirmCallBack();
     }
 
+    @Bean
+    public MsgSendReturnCallback msgSendReturnCallback(){
+        return new MsgSendReturnCallback();
+    }
 }

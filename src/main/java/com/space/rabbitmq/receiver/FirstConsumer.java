@@ -1,5 +1,6 @@
 package com.space.rabbitmq.receiver;
 
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +16,9 @@ public class FirstConsumer {
     /**
      * queues  指定从哪个队列（queue）订阅消息
      * @param message
-     * @throws Exception
      */
-    @RabbitListener(queues = {/*"first-queue",*/"second-queue"}, containerFactory = "rabbitListenerContainerFactory")
-    public void handleMessage(Object message) throws Exception {
+    @RabbitListener(queues = {"first-queue"})
+    public void handleMessage(Message message){
         // 处理消息
         System.out.println("FirstConsumer {} handleMessage :"+message);
     }
